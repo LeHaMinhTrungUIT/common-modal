@@ -1,0 +1,26 @@
+.example2 {
+  .selected-img {
+    display: flex;
+    justify-content: space-around;
+
+    img {
+        width: 50rem;
+        height: 30rem;
+    }
+  }
+
+  .img-list {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+
+    .img {
+      width: 200px;
+      cursor: pointer;
+    }
+  }
+}
