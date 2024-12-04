@@ -6,6 +6,7 @@ import IMG_3 from "../../../asset/img/mock3.jpeg";
 import IMG_4 from "../../../asset/img/mock4.jpeg";
 import IMG_5 from "../../../asset/img/mock5.jpeg";
 import "./index.scss";
+import { MASK_TYPE } from "../../../constants/modal";
 
 const IMG_LIST = [IMG_1, IMG_2, IMG_3, IMG_4, IMG_5];
 
@@ -23,7 +24,7 @@ const Example2 = () => {
         footer={null}
         header="Billions"
         className="example2"
-        maskClosable
+        maskType={MASK_TYPE.CLOSABLE}
       >
         <div className="selected-img">
           <img src={IMG_LIST[selectedIndex]} />

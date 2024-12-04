@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../../common/Modal";
 import "./index.scss";
+import { MASK_TYPE } from "../../../constants/modal";
 
 const Example1 = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const Example1 = () => {
         cancelText="No"
         onOk={() => setResult("Yes")}
         onCancel={() => setResult("No")}
-        interactionOutside
+        maskType={MASK_TYPE.NONE}
         className="example1"
       >
         Are you sure you want to remove this team?

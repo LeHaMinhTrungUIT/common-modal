@@ -1,13 +1,14 @@
 import React, { ReactNode } from "react";
 import "./index.scss";
 import CLOSE_ICON from "../../../asset/icon/close-icon.svg";
+import { MASK_TYPE } from "../../../constants/modal";
 
 interface IModalProps {
   header?: ReactNode | string;
   children: ReactNode | string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  maskClosable?: boolean;
+  maskType?: MASK_TYPE;
   footer?: ReactNode | string;
   closeIcon?: ReactNode | null;
   okText?: string;
@@ -15,7 +16,6 @@ interface IModalProps {
   onOk?: () => void;
   onCancel?: () => void;
   className?: string;
-  interactionOutside?: boolean;
 }
 const Modal = (props: IModalProps) => {
   const {
@@ -23,7 +23,7 @@ const Modal = (props: IModalProps) => {
     children,
     open,
     setOpen,
-    maskClosable = false,
+    maskType = MASK_TYPE.DEFAULT,
     footer,
     closeIcon,
     okText = "OK",
@@ -31,13 +31,12 @@ const Modal = (props: IModalProps) => {
     onOk = () => {},
     onCancel = () => {},
     className = "",
-    interactionOutside = false,
   } = props;
 
   const onCloseModal = () => setOpen(false);
 
   const onClickMask = () =>
-    (maskClosable || closeIcon === null) && onCloseModal();
+    (maskType === MASK_TYPE.CLOSABLE || closeIcon === null) && onCloseModal();
 
   const renderCloseIcon = () =>
     closeIcon ? (
@@ -82,7 +81,11 @@ const Modal = (props: IModalProps) => {
   return (
     <>
       {open && (
-        <div className={`modal-container ${interactionOutside ? "interaction-outside" : ""}`}>
+        <div
+          className={`modal-container ${
+            maskType === MASK_TYPE.NONE ? "interaction-outside" : ""
+          }`}
+        >
           <div
             className={`modal ${className}`}
             onClick={(e) => e.stopPropagation()}
@@ -92,7 +95,7 @@ const Modal = (props: IModalProps) => {
             <div className="children">{children}</div>
             <div className="footer">{renderFooter()}</div>
           </div>
-          {!interactionOutside && (
+          {maskType !== MASK_TYPE.NONE && (
             <div className="modal-overlay" onClick={() => onClickMask()}></div>
           )}
         </div>
